@@ -13,10 +13,21 @@ function Chat({socket, username, room}) {
         setCurrentMessage(e.target.value)
     }
 
-    const sendMessage =()=>{
+    const sendMessage = async()=>{
 
         if(currentMessage !==''){
-            
+
+            const messageData ={
+
+                room:room,
+                author:username,
+                message:currentMessage,
+                time:new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
+
+                // geting the actual date and time the message was sent
+            }
+
+            await socket.emit('send_message', messageData)
 
 
         }
