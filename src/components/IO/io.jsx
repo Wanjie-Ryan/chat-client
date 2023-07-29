@@ -14,6 +14,7 @@ function SocketIo() {
 
   const [username, setUsername] = useState()
   const[room, setRoom] = useState()
+  const [showchat, setShowChat] = useState(false)
 
   const handleName =(e)=>{
 
@@ -30,6 +31,7 @@ function SocketIo() {
     if(username !=='' && room !==''){
 
       socket.emit('join_room', room)
+      setShowChat(true)
 
     }
 
@@ -46,16 +48,28 @@ function SocketIo() {
 
       <div className='App'>
 
-        <h3>Join A chat</h3> 
+        {!showchat ? (
+          
+          <div className="joinchatcontainer"> 
+        
 
-        <input type ='text' placeholder ='Enter your name'onchange={handleName} value={username} required/>
-        <input type ='text' placeholder ='Enter the room number you want to join' onChange={handleRoom} value={room} required/>
-        <button type ='submit' onClick={JoinRoom}>Join Room</button>
+            <h3>Join A chat</h3> 
 
-        <Chats socket={socket} username={username} room ={room}/>
+            <input type ='text' placeholder ='Enter your name'onchange={handleName} value={username} required/>
+            <input type ='text' placeholder ='Enter the room number you want to join' onChange={handleRoom} value={room} required/>
+            <button type ='submit' onClick={JoinRoom}>Join Room</button>
 
+          </div>
+        
+        ):(
 
+          <Chats socket={socket} username={username} room ={room}/>
+        )}
 
+        
+          
+
+        
 
 
       </div>

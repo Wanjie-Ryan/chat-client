@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './chat.css'
 
 
@@ -33,32 +33,44 @@ function Chat({socket, username, room}) {
         }
     }
 
+    useEffect(()=>{
+
+        socket.on('received-message', (data)=>{
+
+            console.log(data)
+
+        })
+
+    }, [socket])
+
   return (
 
 
     <>
 
+        <div className='chat-window'>
+
     
-       <div className='chat-header'>
+            <div className='chat-header'>
 
-        <p>Live Chat</p>
-
-
-
-       </div>
-
-       <div className="chat-body">
+                <p>Live Chat</p>
 
 
 
-       </div>
+            </div>
 
-       <div className="chat-footer">
-
-        <input type="text" onChange ={handleMessage} value={currentMessage} placeholder="Type a message here..."/>
-        <button onClick ={sendMessage}>&#9658;</button>
+            <div className="chat-body">
 
 
+
+            </div>
+
+            <div className="chat-footer">
+
+                <input type="text" onChange ={handleMessage} value={currentMessage} placeholder="Type a message here..."/>
+                <button onClick ={sendMessage}>&#9658;</button>
+
+        </div>
 
        </div>
 
