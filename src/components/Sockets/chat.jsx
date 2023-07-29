@@ -32,6 +32,7 @@ function Chat({socket, username, room}) {
 
             //the useState also holds the current message being sent by this actual user
             setMsgList((list)=>[...list, messageData])
+            // setMsgList(messageData)
             setCurrentMessage('')
 
 
@@ -129,3 +130,16 @@ function Chat({socket, username, room}) {
 }
 
 export default Chat
+
+
+
+
+
+
+
+
+
+
+
+
+
