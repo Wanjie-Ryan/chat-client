@@ -5,7 +5,7 @@ import './io.css'
 
 
 
-const socket = IOsocket.connect('http://localhost:3001')
+const socket = IOsocket.connect('https://ryan-chats.onrender.com')
 // connecting our frontend to the backend
 
 
