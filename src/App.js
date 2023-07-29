@@ -1,12 +1,20 @@
 import React from 'react'
-import IO from '../../'
+import SocketComponent from './components/IO/io'
 
 
+function App(){
 
-function App() {
-  return (
-    <div>App</div>
-  )
+
+    return(
+
+      <>
+
+        
+        <SocketComponent/>
+        
+
+      </>
+    )
 }
 
 export default App
