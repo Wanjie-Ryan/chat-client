@@ -7,6 +7,7 @@ function Chat({socket, username, room}) {
 
 
     const [currentMessage, setCurrentMessage] = useState()
+    const [msgList, setMsgList] = useState([])
 
     const handleMessage =(e)=>{
 
@@ -29,6 +30,9 @@ function Chat({socket, username, room}) {
 
             await socket.emit('send_message', messageData)
 
+            //the useState also holds the current message being sent by this actual user
+            setMsgList((list)=>[...list, messageData])
+
 
         }
     }
@@ -37,7 +41,10 @@ function Chat({socket, username, room}) {
 
         socket.on('received-message', (data)=>{
 
-            console.log(data)
+            // console.log(data)
+
+            //the useState over here grabs whatever messsage that was there before hand and adds the new message to the end
+            setMsgList((list)=>[...list, data])
 
         })
 
@@ -60,6 +67,38 @@ function Chat({socket, username, room}) {
             </div>
 
             <div className="chat-body">
+
+                {msgList.map((messageContent)=>{
+                    
+                    return(
+
+                        <div className="message">
+
+                            <div >
+
+                                <div className="message-content">
+
+                                    <p>{messageContent.message}</p>
+
+                                </div>
+
+                                <div className="message-meta">
+
+                                    <p>{messageContent.time}</p>
+                                    <p>{messageContent.author}</p>
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+
+                    )
+                })}
 
 
 
