@@ -22,6 +22,17 @@ function SocketIo() {
     setRoom(e.target.value)
   }
 
+  const JoinRoom =()=>{
+
+    if(username !=='' && room !==''){
+
+      socket.emit('join_room', room)
+
+    }
+
+
+  }
+
 
 
   return (
@@ -35,7 +46,7 @@ function SocketIo() {
         <h3>Join A chat</h3> 
         <input type ='text' placeholder ='Enter your name'onchange={handleName} value={username} required/>
         <input type ='text' placeholder ='Enter the room number you want to join' onChange={handleRoom} value={room} required/>
-        <button type ='submit'>Join Room</button>
+        <button type ='submit' onClick={JoinRoom}>Join Room</button>
 
 
 
