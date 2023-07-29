@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import './chat.css'
-
+import ScrolltoBottom from 'react-scroll-to-bottom'
 
 //passing data from io as props to chat component
 function Chat({socket, username, room}) {
@@ -32,6 +32,7 @@ function Chat({socket, username, room}) {
 
             //the useState also holds the current message being sent by this actual user
             setMsgList((list)=>[...list, messageData])
+            setCurrentMessage('')
 
 
         }
@@ -68,37 +69,41 @@ function Chat({socket, username, room}) {
 
             <div className="chat-body">
 
-                {msgList.map((messageContent)=>{
-                    
-                    return(
+                <ScrolltoBottom className='message-container'>
 
-                        <div className="message">
 
-                            <div >
+                    {msgList.map((messageContent)=>{
+                        
+                        return(
 
-                                <div className="message-content">
+                            <div className="message" id={username ===messageContent.author ? 'you' : 'other'}>
+                                
+                                <div >
 
-                                    <p>{messageContent.message}</p>
+                                    <div className="message-content">
+
+                                        <p>{messageContent.message}</p>
+
+                                    </div>
+
+                                    <div className="message-meta">
+
+                                        <p id ='time'>{messageContent.time}</p>
+                                        <p id ='author'>{messageContent.author}</p>
+
+
+                                    </div>
+
+
 
                                 </div>
-
-                                <div className="message-meta">
-
-                                    <p>{messageContent.time}</p>
-                                    <p>{messageContent.author}</p>
-
-
-                                </div>
-
 
 
                             </div>
 
-
-                        </div>
-
                     )
-                })}
+                    })}
+                </ScrolltoBottom>
 
 
 
@@ -106,7 +111,7 @@ function Chat({socket, username, room}) {
 
             <div className="chat-footer">
 
-                <input type="text" onChange ={handleMessage} value={currentMessage} placeholder="Type a message here..."/>
+                <input type="text" onChange ={handleMessage} value={currentMessage} placeholder="Type a message here..." onKeyPress ={(e)=>{e.key ==='Enter' && sendMessage()}}/>
                 <button onClick ={sendMessage}>&#9658;</button>
 
         </div>
